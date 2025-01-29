@@ -1,4 +1,4 @@
-# Student Management 
+# Student Management (GORM)
 
 This is simple API application which provides basic CRUD operations related to student and course management using GORM ORM Library.
 
