@@ -99,7 +99,7 @@ func (repo *SQLCourseRepository) UpdateCourse(courseID int, course model.Course)
 }
 
 func (repo *SQLCourseRepository) DeleteCourse(courseID int) error {
-	err := repo.DB.Delete(courseID).Error
+	err := repo.DB.Where("id = ?", courseID).Delete(&CourseDB{}).Error
 	if err != nil {
 		return fmt.Errorf("could not delete course: %v", err)
 	}

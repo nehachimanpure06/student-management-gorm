@@ -91,7 +91,7 @@ func (repo *SQLStudentRepository) AddStudent(student model.Student) (int, error)
 
 func (repo *SQLStudentRepository) UpdateStudent(studentID int, student model.Student) error {
 	dbStudent := repo.toDBModel(student)
-	err := repo.DB.Model(&StudentDB{}).Where("id = ?", studentID).Updates(dbStudent)
+	err := repo.DB.Model(&StudentDB{}).Where("id = ?", studentID).Updates(dbStudent).Error
 	if err != nil {
 		return fmt.Errorf("could not update student: %v", err)
 	}
@@ -100,7 +100,7 @@ func (repo *SQLStudentRepository) UpdateStudent(studentID int, student model.Stu
 }
 
 func (repo *SQLStudentRepository) DeleteStudent(studentID int) error {
-	err := repo.DB.Delete(studentID)
+	err := repo.DB.Where("id = ?", studentID).Delete(&StudentDB{}).Error
 	if err != nil {
 		return fmt.Errorf("could not delete student: %v", err)
 	}
